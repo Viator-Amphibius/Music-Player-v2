@@ -51,6 +51,7 @@ public abstract class Person implements IFollow<Person>{
 	public void setListOfFollowings(ArrayList<Person> listOfFollowings) {
 		this.listOfFollowings = listOfFollowings;
 	}
+	
 	/**
 	 * The next two methods are from the implemented interface.
 	 * Ideally, if one of them is called, the other one should also be called for the other object to
@@ -65,6 +66,14 @@ public abstract class Person implements IFollow<Person>{
 	public void followedBy(Person toBeFollowed)
 	{
 		this.listOfFollowers.add(toBeFollowed);
+	}
+	public void unfollow(Person toBeUnFollowed)
+	{
+		this.listOfFollowings.remove(toBeUnFollowed);
+	}
+	public void removeFollower(Person toBeDeleted)
+	{
+		this.listOfFollowers.remove(toBeDeleted);
 	}
 	public void printBrief()
 	{
