@@ -3,6 +3,9 @@ package componentsV2;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Class for albums
+ */
 public class Album {
 	private static int nextID = 0;
 	private int id;
@@ -14,6 +17,7 @@ public class Album {
 	
 	/**
 	 * Constructor for the album. We do not add songs to the album at this stage. We add the songs after creating their album.
+	 * auto ID.
 	 * @param name
 	 * @param genre
 	 * @param releaseDate
@@ -28,6 +32,15 @@ public class Album {
 		this.songs = new ArrayList<>(); //No songs passed at creation
 	}
 	
+	/**
+	 * Constructor with songs passed at creation.
+	 * auto ID.
+	 * @param name
+	 * @param genre
+	 * @param date
+	 * @param artist
+	 * @param songs
+	 */
 	public Album(String name, String genre, LocalDate date, Artist artist, ArrayList<Song> songs) {
 		this.id = nextID++;
 		this.name = name;
@@ -39,8 +52,28 @@ public class Album {
 			song.getAlbums().add(this);
 	}
 
+	/**
+	 * Full fields constructor
+	 * @param id
+	 * @param name
+	 * @param genre
+	 * @param releaseDate
+	 * @param artist
+	 * @param songs
+	 */
+	public Album(int id, String name, String genre, LocalDate releaseDate, Artist artist, ArrayList<Song> songs) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.genre = genre;
+		this.releaseDate = releaseDate;
+		this.artist = artist;
+		this.songs = songs;
+	}
 
-	
+	/**
+	 * Getters and Setters
+	 */
 	
 	public int getId() {
 		return id;
@@ -161,4 +194,8 @@ public class Album {
 		}
 	}
 	
+	@Override
+	public String toString() {
+		return "ID: " + this.id + ", name: " + this.name;
+	}
 }

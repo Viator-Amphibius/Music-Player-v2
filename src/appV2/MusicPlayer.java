@@ -8,8 +8,11 @@ import java.util.stream.Collectors;
 
 import componentsV2.*;
 
-//TODO: Add songs to album at creation
-
+/**
+ * 
+ *	This class contains the main function.
+ *
+ */
 public class MusicPlayer {
 
 	public static Scanner in = new Scanner(System.in);
@@ -159,6 +162,11 @@ public class MusicPlayer {
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	
+	/**
+	 * prints the menu
+	 * @return the option selected
+	 * @throws InputMismatchException
+	 */
 	public static int menu() throws InputMismatchException
 	{
 		return Interaction.menu();
@@ -857,4 +865,14 @@ public class MusicPlayer {
 		}
 		System.out.println("Song limits were updated successfully for public subscriptions");
 	}
+	/*
+	 * The sequence diagram of the previous method is provided in the submission folder.
+	 * To simplify the sequence diagram, we can do either of the following in the class diagram:
+	 * 1- We can store all the public subscription in an Arraylist in the MusicPlayer so we can iterate
+	 * over them directly without going to every single user and testing if they have a public subscription.
+	 * 2- We can put IncreaseSongLimit() as an abstract method in the Subscription class, and implement it normally in
+	 * the publicSubscription subclass and implement it using empty methods in the other two subclasses.
+	 * This way we still have to iterate over all users, but we won't have to test if their subscription is premium or not.
+	 * Compared to the previous solution, this one saves some memory by not having an Arraylist of all public subscriptions. 
+	 */
 }

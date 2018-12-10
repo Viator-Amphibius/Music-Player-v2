@@ -3,6 +3,9 @@ package componentsV2;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Class for playlists
+ */
 public class Playlist {
 
 	private static int nextID = 0;
@@ -14,6 +17,7 @@ public class Playlist {
 	
 	/**
 	 * Constructor for playlists.
+	 * auto ID.
 	 * @param name
 	 * @param owner
 	 * @param date
@@ -26,9 +30,41 @@ public class Playlist {
 		this.dateCreated = date;
 		this.songs = songs;
 	}
+	
+	/**
+	 * auto ID.
+	 * auto date.
+	 * @param name
+	 * @param owner
+	 * @param songs
+	 */
+	public Playlist(String name, User owner, ArrayList<Song> songs) {
+		this.id = nextID++;
+		this.name = name;
+		this.owner = owner;
+		this.dateCreated = LocalDate.now();
+		this.songs = songs;
+	}
+	
+	/**
+	 * Full fields constructor
+	 * @param id
+	 * @param name
+	 * @param owner
+	 * @param dateCreated
+	 * @param songs
+	 */
+	public Playlist(int id, String name, User owner, LocalDate dateCreated, ArrayList<Song> songs) {
+		this.id = id;
+		this.name = name;
+		this.owner = owner;
+		this.dateCreated = dateCreated;
+		this.songs = songs;
+	}
 
-	
-	
+	/**
+	 * Getters and Setters
+	 */
 	public int getId() {
 		return id;
 	}
@@ -133,5 +169,10 @@ public class Playlist {
 			System.out.print("\t");
 			s.printBrief();
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return "ID: " + this.id + ", name: " + this.name;
 	}
 }

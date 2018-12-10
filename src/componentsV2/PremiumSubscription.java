@@ -2,12 +2,21 @@ package componentsV2;
 
 import java.time.LocalDate;
 
+/**
+ * Class for premium subs
+ * @author khale
+ *
+ */
 public class PremiumSubscription extends Subscription{
 	float paymentTotal;
 	long creditCardNumber;
 	String workOrganization;
 	String workAddress;
 	static final float monthlyfees = (float)10.0;
+	
+	/**
+	 * Different Constructors
+	 */
 	public PremiumSubscription(String email, long creditCardNumber, String workOrganization, String workAddress) {
 		super(1000, email);
 		this.paymentTotal = monthlyfees;
@@ -31,6 +40,7 @@ public class PremiumSubscription extends Subscription{
 		this.workOrganization = workOrganization;
 		this.workAddress = workAddress;
 	}
+	
 	public float getPaymentTotal() {
 		return paymentTotal;
 	}

@@ -2,6 +2,9 @@ package componentsV2;
 
 import java.time.LocalDate;
 
+/**
+ * Abstract class for subscriptions
+ */
 public abstract class Subscription {
 
 	private int songLimit;
@@ -9,6 +12,11 @@ public abstract class Subscription {
 	private LocalDate expiryDate;
 	private String email;
 	
+	/**
+	 * 1 month sub now
+	 * @param songLimit
+	 * @param email
+	 */
 	public Subscription(int songLimit, String email)
 	{
 		this.songLimit = songLimit;
@@ -17,6 +25,27 @@ public abstract class Subscription {
 		this.email = email;
 	}
 	
+	/**
+	 * 1 month sub custom
+	 * @param songLimit
+	 * @param subscriptionDate
+	 * @param email
+	 */
+	public Subscription(int songLimit, LocalDate subscriptionDate, String email)
+	{
+		this.songLimit = songLimit;
+		this.subscriptionDate = subscriptionDate;
+		this.expiryDate = this.subscriptionDate.plusDays(30);
+		this.email = email;
+	}
+	
+	/**
+	 * Full fields constructor
+	 * @param songLimit
+	 * @param subscriptionDate
+	 * @param expiryDate
+	 * @param email
+	 */
 	public Subscription(int songLimit, LocalDate subscriptionDate, LocalDate expiryDate, String email)
 	{
 		this.songLimit = songLimit;

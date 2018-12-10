@@ -3,12 +3,26 @@ package componentsV2;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Class for users
+ * 
+ *
+ */
 public class User extends Person{
 	private String userName;
 	private ArrayList<Album> listOfAlbums;
 	private ArrayList<Playlist> listOfPlaylists;
 	private Subscription subscription;
 	
+	/**
+	 * constructor with public subscription.
+	 * @param name
+	 * @param DOB
+	 * @param userName
+	 * @param listOfAlbums
+	 * @param listOfPlaylists
+	 * @param email
+	 */
 	public User(String name, LocalDate DOB, String userName, ArrayList<Album> listOfAlbums,
 			ArrayList<Playlist> listOfPlaylists, String email) {
 		super(name, DOB);
@@ -18,6 +32,15 @@ public class User extends Person{
 		this.subscription = new PublicSubscription(email);
 	}
 	
+	/**
+	 * constructor with passed subscription.
+	 * @param name
+	 * @param DOB
+	 * @param userName
+	 * @param listOfAlbums
+	 * @param listOfPlaylists
+	 * @param subscription
+	 */
 	public User(String name, LocalDate DOB, String userName, ArrayList<Album> listOfAlbums,
 			ArrayList<Playlist> listOfPlaylists, Subscription subscription) {
 		super(name, DOB);
@@ -28,7 +51,31 @@ public class User extends Person{
 	}
 	
 	
+	/**
+	 * constructor for all fields.
+	 * @param id
+	 * @param name
+	 * @param dOB
+	 * @param listOfFollowers
+	 * @param listOfFollowings
+	 * @param userName
+	 * @param listOfAlbums
+	 * @param listOfPlaylists
+	 * @param subscription
+	 */
+	public User(int id, String name, LocalDate dOB, ArrayList<Person> listOfFollowers,
+			ArrayList<Person> listOfFollowings, String userName, ArrayList<Album> listOfAlbums,
+			ArrayList<Playlist> listOfPlaylists, Subscription subscription) {
+		super(id, name, dOB, listOfFollowers, listOfFollowings);
+		this.userName = userName;
+		this.listOfAlbums = listOfAlbums;
+		this.listOfPlaylists = listOfPlaylists;
+		this.subscription = subscription;
+	}
 
+	/**
+	 * Getters and Setters
+	 */
 	public String getUserName() {
 		return userName;
 	}
@@ -98,4 +145,7 @@ public class User extends Person{
 		}
 		System.out.println(this.subscription.toString());
 	}
+	/**
+	 * Tostring implemented in parent
+	 */
 }

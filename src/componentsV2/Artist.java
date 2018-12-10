@@ -3,12 +3,23 @@ package componentsV2;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Class for artists.
+ */
 public class Artist extends Person{
 
 	private String typeOfMusic;
 	private ArrayList<String> awards;
 	private ArrayList<Album> albums;
 	private ArrayList<Song> songs;
+	
+	/**
+	 * Practical constructor
+	 * @param name
+	 * @param DOB
+	 * @param typeOfMusic
+	 * @param awards
+	 */
 	public Artist(String name, LocalDate DOB, String typeOfMusic, ArrayList<String> awards) {
 		super(name, DOB);
 		this.typeOfMusic = typeOfMusic;
@@ -16,6 +27,51 @@ public class Artist extends Person{
 		this.albums = new ArrayList<>(); //No albums should be passed to the constructor, as albums already created will be another artist's
 		this.songs = new ArrayList<>(); //No songs should be passed to the constructor, as songs already created will be another artist's
 	}
+	
+	/**
+	 * Full child fields constructor
+	 * @param name
+	 * @param DOB
+	 * @param typeOfMusic
+	 * @param awards
+	 * @param albums
+	 * @param songs
+	 */
+	public Artist(String name, LocalDate DOB, String typeOfMusic, ArrayList<String> awards, ArrayList<Album> albums,
+			ArrayList<Song> songs) {
+		super(name, DOB);
+		this.typeOfMusic = typeOfMusic;
+		this.awards = awards;
+		this.albums = albums;
+		this.songs = songs;
+	}
+
+	/**
+	 * Full child/super fileds constructor
+	 * @param id
+	 * @param name
+	 * @param dOB
+	 * @param listOfFollowers
+	 * @param listOfFollowings
+	 * @param typeOfMusic
+	 * @param awards
+	 * @param albums
+	 * @param songs
+	 */
+	public Artist(int id, String name, LocalDate dOB, ArrayList<Person> listOfFollowers,
+			ArrayList<Person> listOfFollowings, String typeOfMusic, ArrayList<String> awards, ArrayList<Album> albums,
+			ArrayList<Song> songs) {
+		super(id, name, dOB, listOfFollowers, listOfFollowings);
+		this.typeOfMusic = typeOfMusic;
+		this.awards = awards;
+		this.albums = albums;
+		this.songs = songs;
+	}
+
+
+	/**
+	 * Getters and Setters
+	 */
 	public String getTypeOfMusic() {
 		return typeOfMusic;
 	}
@@ -101,4 +157,8 @@ public class Artist extends Person{
 			s.printBrief();
 		}
 	}
+	
+	/**
+	 * Tostring is implemented in parent
+	 */
 }

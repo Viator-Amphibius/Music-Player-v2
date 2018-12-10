@@ -3,6 +3,9 @@ package componentsV2;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Class for songs.
+ */
 public class Song {
 	private static int nextID = 0;
 	private int id;
@@ -14,6 +17,7 @@ public class Song {
 	
 	/**
 	 * Constructor for songs.
+	 * auto ID.
 	 * @param name
 	 * @param genre
 	 * @param date
@@ -28,7 +32,51 @@ public class Song {
 		this.albums = albums;
 		this.artist = artist;
 	}
+	
+	
+	
+	/**
+	 * auto genre
+	 * @param id
+	 * @param name
+	 * @param releaseDate
+	 * @param albums
+	 * @param artist
+	 */
+	public Song(int id, String name, LocalDate releaseDate, ArrayList<Album> albums, Artist artist) {
+		this.id = id;
+		this.name = name;
+		this.genre = artist.getTypeOfMusic();
+		this.releaseDate = releaseDate;
+		this.albums = albums;
+		this.artist = artist;
+	}
 
+
+
+
+	/**
+	 * Full fields constructor
+	 * @param id
+	 * @param name
+	 * @param genre
+	 * @param releaseDate
+	 * @param albums
+	 * @param artist
+	 */
+	public Song(int id, String name, String genre, LocalDate releaseDate, ArrayList<Album> albums, Artist artist) {
+		this.id = id;
+		this.name = name;
+		this.genre = genre;
+		this.releaseDate = releaseDate;
+		this.albums = albums;
+		this.artist = artist;
+	}
+
+
+	/**
+	 * Getters and Setters
+	 */
 	public int getId() {
 		return id;
 	}
@@ -129,5 +177,10 @@ public class Song {
 		System.out.println("Song Artist: ");
 		System.out.print("\t");
 		this.artist.printBrief();
+	}
+	
+	@Override
+	public String toString() {
+		return "ID: " + this.id + ", name: " + this.name;
 	}
 }
