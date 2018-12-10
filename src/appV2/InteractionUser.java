@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
+
 import componentsV2.*;
 
 /**
@@ -79,70 +80,70 @@ public class InteractionUser {
 			System.out.println("No user was found with the given id.");
 	}
 	
-	/*
-	public static ArrayList<User> getFollowers_interactive() throws InputMismatchException
+	public static void subscribeUser_Interactive() throws InputMismatchException
 	{
-		int temp, exit = 0;
-		ArrayList<User> listOfFollowers = new ArrayList<>();
-		while (exit != 1)
+		int id;
+		System.out.print("Enter the user's id: ");
+		id = MusicPlayer.in.nextInt();
+		MusicPlayer.in.nextLine();
+		User tempUser = MusicPlayer.getUser(id);
+		if(tempUser == null)
 		{
-			User tempUser;
-			System.out.print("\tEnter follower's id (or -1 to skip): ");
-			temp = MusicPlayer.in.nextInt();
-			MusicPlayer.in.nextLine();
-			if(temp != -1)
-			{
-				tempUser = MusicPlayer.getUser(temp); 
-				if(tempUser != null)
-				{
-					if(listOfFollowers.contains(tempUser))
-						System.out.println("\tThe follower is already added.");
-					else {
-						listOfFollowers.add(tempUser);
-						System.out.println("\tThe follower was added successfully.");
-					}
-				}
-				else
-				{
-					System.out.println("\tNo user was found with the provided ID.");
-				}	
-			}
-			else
-				exit = 1;
+			System.out.println("No user was found with the given id.");
+			return;
 		}
-		return listOfFollowers;
+		
+		int type;
+		System.out.println("Choose the subscription type");
+		System.out.println("1->Public, 2->Student, 3->Premium, else->abort process");
+		System.out.print("Your choice: ");
+		type = MusicPlayer.in.nextInt();
+		MusicPlayer.in.nextLine();
+		if(type!=1 && type!=2 && type!=3)
+		{
+			System.out.println("Process Aborted");
+			return;
+		}
+		
+		System.out.print("Enter your email: ");
+		String email = MusicPlayer.in.nextLine();
+		String schoolName, schoolAddress, workOrganization, workAddress;
+		int schoolID, studentID;
+		long card;
+		switch (type)
+		{
+			case 1:
+				MusicPlayer.subscribeUser(tempUser, new PublicSubscription(email));
+				System.out.println(tempUser.getUserName() + " now has a public subscription" +
+					" that will expire on: " + tempUser.getSubscription().getExpiryDate());
+				break;
+			case 2:
+				System.out.print("Enter your school's name: ");
+				schoolName = MusicPlayer.in.nextLine();
+				System.out.print("Enter your school's address: ");
+				schoolAddress = MusicPlayer.in.nextLine();
+				System.out.print("Enter your school's id: ");
+				schoolID = MusicPlayer.in.nextInt();
+				MusicPlayer.in.nextLine();
+				System.out.print("Enter your student's id: ");
+				studentID = MusicPlayer.in.nextInt();
+				MusicPlayer.in.nextLine();
+				MusicPlayer.subscribeUser(tempUser, new StudentSubscription(email, schoolName, schoolID, schoolAddress, studentID));
+				System.out.println(tempUser.getUserName() + " now has a student subscription" +
+					" that will expire on: " + tempUser.getSubscription().getExpiryDate());
+				break;
+			default:
+				System.out.print("Enter your work organization's name: ");
+				workOrganization = MusicPlayer.in.nextLine();
+				System.out.print("Enter your work organization's address: ");
+				workAddress = MusicPlayer.in.nextLine();
+				System.out.print("Enter your credit card's number: ");
+				card = MusicPlayer.in.nextLong();
+				MusicPlayer.in.nextLine();
+				MusicPlayer.subscribeUser(tempUser, new PremiumSubscription(email,card,workOrganization,workAddress));
+				System.out.println(tempUser.getUserName() + " now has a premium subscription" +
+						" that will expire on: " + tempUser.getSubscription().getExpiryDate());
+				break;
+		}
 	}
-	
-	public static ArrayList<User> getFollowings_interactive() throws InputMismatchException
-	{
-		int temp, exit = 0;
-		ArrayList<User> listOfFollowings = new ArrayList<>();
-		while (exit != 1)
-		{
-			User tempUser;
-			System.out.print("\tEnter following's id (or -1 to skip): ");
-			temp = MusicPlayer.in.nextInt();
-			MusicPlayer.in.nextLine();
-			if(temp != -1)
-			{
-				tempUser = MusicPlayer.getUser(temp); 
-				if(tempUser != null)
-				{
-					if(listOfFollowings.contains(tempUser))
-						System.out.println("\tThe following is already added.");
-					else {
-						listOfFollowings.add(tempUser);
-						System.out.println("\tThe following was added successfully.");
-					}
-				}
-				else
-				{
-					System.out.println("\tNo user was found with the provided ID.");
-				}	
-			}
-			else
-				exit = 1;
-		}
-		return listOfFollowings;
-	}*/
 }

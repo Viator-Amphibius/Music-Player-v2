@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+
 import componentsV2.*;
 
 //TODO: Add songs to album at creation
@@ -22,7 +24,7 @@ public class MusicPlayer {
 		int option, exit=0;
 		System.out.println("-------------------Arboreal Music Player-------------------");
 		try {
-			option = Interaction.menu();
+			option = menu();
 		}
 		catch (InputMismatchException e) {
 			in.nextLine();
@@ -74,31 +76,59 @@ public class MusicPlayer {
 					break;
 					
 				case 10:
-					Interaction.addArtist_interactive();
-					break;
-					
-				case 11:
 					Interaction.addPlaylist_interactive();
 					break;
 					
-				case 12:
+				case 11:
 					Interaction.addSongToPlaylist_interactive();
 					break;
 					
-				case 13:
+				case 12:
 					Interaction.getPlaylistDetails_interactive();
 					break;
 					
-				case 14:
+				case 13:
 					Interaction.deletePlaylist_interactive();
 					break;
 					
-				case 15:
+				case 14:
 					displaySongs();
 					break;
 					
-				case 16:
+				case 15:
 					displayUsers();
+					break;
+					
+				case 16:
+					Interaction.addArtist_interactive();
+					break;
+					
+				case 17:
+					Interaction.deleteArtist_interactive();
+					break;
+					
+				case 18:
+					displayArtists();
+					break;	
+					
+				case 19:
+					Interaction.followPerson_interactive();
+					break;
+					
+				case 20:
+					Interaction.listFollowers_Interactive();
+					break;
+					
+				case 21:
+					Interaction.subscribeUser_Interactive();
+					break;
+					
+				case 22:
+					listSubscribedUsers();
+					break;
+					
+				case 23:
+					increaseSongLimitsPublicSubs();
 					break;
 		
 				default:
@@ -126,6 +156,15 @@ public class MusicPlayer {
 		System.out.println("Program Terminated");
 
 	}
+	
+	/////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public static int menu() throws InputMismatchException
+	{
+		return Interaction.menu();
+	}
+	
+	/////////////////////////////////////////////////////////////////////////////////////////////////////	
 	
 	/**
 	 * Adds a new user to the system
@@ -242,6 +281,18 @@ public class MusicPlayer {
 			tempUser.printDetailed();
 			return true;
 		}
+	}
+	
+	/**
+	 * Adds the given subscription object to the given user.
+	 * @param user
+	 * @param subscription
+	 */
+	public static void subscribeUser(User user, Subscription subscription)
+	{
+		/*THE DETAILS OF THE SUBSCRIPTION ARE GATHERED IN THE METHOD "subscribeUser_Interactive()" in the class 
+		Interactive where this method is called*/
+		user.setSubscription(subscription);
 	}
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -582,6 +633,56 @@ public class MusicPlayer {
 		return tempArtist;
 	}
 	
+	public static Artist deleteArtist(String name)
+	{
+		Artist tempArtist;
+		for(int i=0; i<artists.size(); i++)
+		{
+			if(artists.get(i).getName().equals(name))
+			{
+				tempArtist = artists.get(i);
+				deleteArtistTraces(tempArtist);
+				artists.remove(i);
+				return tempArtist;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Deletes all the traces of an artist including all their songs and albums
+	 * @param artist
+	 */
+	public static void deleteArtistTraces(Artist artist)
+	{
+		//delete all their songs from all the playlists
+		for(Playlist p:playlists)
+		{
+			p.setSongs((ArrayList<Song>)p.getSongs().stream()
+				.filter(s -> s.getArtist().getId()!=artist.getId())
+				.collect(Collectors.toList()));
+		}
+		
+		//delete all their albums form all the users
+		for(User u:users)
+		{
+			u.setListOfAlbums((ArrayList<Album>)u.getListOfAlbums().stream()
+				.filter(a -> a.getArtist().getId()!=artist.getId())
+				.collect(Collectors.toList()));
+		}
+		
+		//delete all their songs from the MuiscPlayer
+		MusicPlayer.songs = (ArrayList<Song>)MusicPlayer.songs.stream()
+				.filter(s -> s.getArtist().getId()!=artist.getId())
+				.collect(Collectors.toList());
+		
+		//delete all their albums from the MusicPlayer
+		MusicPlayer.albums = (ArrayList<Album>)MusicPlayer.albums.stream()
+				.filter(a -> a.getArtist().getId()!=artist.getId())
+				.collect(Collectors.toList());
+		
+	}
+	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////	
 	
 	/**
@@ -605,6 +706,49 @@ public class MusicPlayer {
 		if(person != null) {
 			for(Person following: person.getListOfFollowings())
 				following.removeFollower(person);
+		}
+	}
+	
+	/**
+	 * Make one person follow another one
+	 * @param you
+	 * @param toBeFollowed
+	 */
+	public static boolean followPerson(Person you, Person toBeFollowed)
+	{
+		int sizeBefore = you.getListOfFollowings().size();
+		you.follow(toBeFollowed);
+		toBeFollowed.followedBy(you);
+		if(sizeBefore == you.getListOfFollowings().size())
+			return false; //already followed
+		else
+			return true;
+	}
+	
+	/**
+	 * returns the person with the given id if found.
+	 * @param id
+	 * @return
+	 */
+	public static Person getPerson(int id)
+	{
+		User user = getUser(id);
+		if(user!=null)
+			return user;
+		Artist artist = getArtist(id);
+		return artist; //might be null	
+	}
+	
+	public static void listFollowers(Person person) {
+		if(person.getListOfFollowers().isEmpty())
+			System.out.println("No followers.");
+		else
+		{
+			for(Person follower:person.getListOfFollowers())
+			{
+				System.out.print("\t");
+				follower.printBrief();
+			}
 		}
 	}
 
@@ -634,5 +778,83 @@ public class MusicPlayer {
 			s.printDetailed();
 			System.out.println("***********");
 		}	
+	}
+	
+	/**
+	 * Displays all artists.
+	 */
+	public static void displayArtists()
+	{
+		System.out.println("All the artists in the system: \n");
+		for(Artist a:artists)
+		{
+			a.printDetailed();
+			System.out.println("***********");
+		}	
+	}
+	
+	/**
+	 * Prints the users classified by their subscription types
+	 */
+	public static void listSubscribedUsers()
+	{
+		ArrayList<User> publicSub = new ArrayList<>();
+		ArrayList<User> studentSub = new ArrayList<>();
+		ArrayList<User> premuimSub = new ArrayList<>();
+		
+		for(User user:users)
+		{
+			if(user.getSubscription() instanceof PublicSubscription)
+				publicSub.add(user);
+			else if(user.getSubscription() instanceof StudentSubscription)
+				studentSub.add(user);
+			else
+				premuimSub.add(user);
+		}
+		
+		System.out.println("Public subscribers:");
+		if(publicSub.isEmpty())
+			System.out.println("\tNo users in this category.");
+		for(User u:publicSub)
+		{
+			System.out.print("\t");
+			u.printBrief();
+		}
+		
+		System.out.println("Student subscribers:");
+		if(studentSub.isEmpty())
+			System.out.println("\tNo users in this category.");
+		for(User u:studentSub)
+		{
+			System.out.print("\t");
+			u.printBrief();
+		}
+		
+		System.out.println("Premium subscribers:");
+		if(premuimSub.isEmpty())
+			System.out.println("\tNo users in this category.");
+		for(User u:premuimSub)
+		{
+			System.out.print("\t");
+			u.printBrief();
+		}
+	}
+	
+	/**
+	 * Increases song limits for public subscriptions
+	 */
+	public static void increaseSongLimitsPublicSubs() 
+	{
+		for(User user:users)
+		{
+			PublicSubscription publicSubscriptionObject;
+			Subscription temp = user.getSubscription();
+			if(temp instanceof PublicSubscription)
+			{
+				publicSubscriptionObject = (PublicSubscription) temp;
+				publicSubscriptionObject.IncreaseSongLimits();
+			}
+		}
+		System.out.println("Song limits were updated successfully for public subscriptions");
 	}
 }

@@ -61,11 +61,13 @@ public abstract class Person implements IFollow<Person>{
  	 */
 	public void follow(Person toBeFollowed)
 	{
-		this.listOfFollowings.add(toBeFollowed);
+		if(!this.listOfFollowings.contains(toBeFollowed))
+			this.listOfFollowings.add(toBeFollowed);
 	}
-	public void followedBy(Person toBeFollowed)
+	public void followedBy(Person toBeFollower)
 	{
-		this.listOfFollowers.add(toBeFollowed);
+		if(!this.listOfFollowers.contains(toBeFollower))
+			this.listOfFollowers.add(toBeFollower);
 	}
 	public void unfollow(Person toBeUnFollowed)
 	{

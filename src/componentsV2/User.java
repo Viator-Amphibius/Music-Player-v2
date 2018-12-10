@@ -83,6 +83,7 @@ public class User extends Person{
 	public void printDetailed()
 	{
 		super.printPersonDetailed();
+		System.out.println("Username: " + this.userName);
 		System.out.println("List of albums: ");
 		for(Album a: this.listOfAlbums)
 		{
@@ -95,5 +96,6 @@ public class User extends Person{
 			System.out.print("\t");
 			p.printBrief();
 		}
+		System.out.println(this.subscription.toString());
 	}
 }

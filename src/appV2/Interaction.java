@@ -26,15 +26,22 @@ public class Interaction {
 		System.out.println("5->add a song");
 		System.out.println("6->delete song by id");
 		System.out.println("7->delete song by name");
-		System.out.println("8->view song's albums");
+		System.out.println("8->view a song's albums");
 		System.out.println("9->add an album");
-		System.out.println("10->add an artist");
-		System.out.println("11->add a playlist from a user");
-		System.out.println("12->add a song to a playlist");
-		System.out.println("13->view playlist's details");
-		System.out.println("14->delete a playlist from a user");
-		System.out.println("15->view all songs");
-		System.out.println("16->view all users");
+		System.out.println("10->add a playlist from a user");
+		System.out.println("11->add a song to a playlist");
+		System.out.println("12->view playlist's details");
+		System.out.println("13->delete a playlist from a user");
+		System.out.println("14->view all songs");
+		System.out.println("15->view all users");
+		System.out.println("16->add an artist");
+		System.out.println("17->delete an artist");
+		System.out.println("18->view all artists");
+		System.out.println("19->follow a person");
+		System.out.println("20->list followers");
+		System.out.println("21->subscribe user");
+		System.out.println("22->list subscribed users");
+		System.out.println("23->increase song limits for public subscriptions");
 		System.out.println("else->exit");
 		System.out.print("Your choice: ");
 		option = MusicPlayer.in.nextInt();
@@ -62,6 +69,11 @@ public class Interaction {
 	public static void viewUserDetails_interactive() throws InputMismatchException
 	{
 		InteractionUser.viewUserDetails_interactive();
+	}
+	
+	public static void subscribeUser_Interactive() throws InputMismatchException
+	{
+		InteractionUser.subscribeUser_Interactive();
 	}
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -100,6 +112,11 @@ public class Interaction {
 		InteractionArtist.addArtist_interactive();
 	}
 	
+	public static void deleteArtist_interactive()
+	{
+		InteractionArtist.deleteArtist_interactive();
+	}
+	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	public static void addPlaylist_interactive() throws InputMismatchException
@@ -120,6 +137,18 @@ public class Interaction {
 	public static void deletePlaylist_interactive() throws InputMismatchException
 	{
 		InteractionPlaylist.deletePlaylist_interactive();
+	}
+	
+	/////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public static void followPerson_interactive() throws InputMismatchException
+	{
+		InteractionPerson.followPerson_interactive();
+	}
+	
+	public static void listFollowers_Interactive() throws InputMismatchException
+	{
+		InteractionPerson.listFollowers_Interactive();
 	}
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////

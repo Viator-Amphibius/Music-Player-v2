@@ -7,6 +7,14 @@ public class PremiumSubscription extends Subscription{
 	long creditCardNumber;
 	String workOrganization;
 	String workAddress;
+	static final float monthlyfees = (float)10.0;
+	public PremiumSubscription(String email, long creditCardNumber, String workOrganization, String workAddress) {
+		super(1000, email);
+		this.paymentTotal = monthlyfees;
+		this.creditCardNumber = creditCardNumber;
+		this.workOrganization = workOrganization;
+		this.workAddress = workAddress;
+	}
 	public PremiumSubscription(String email, float paymentTotal, long creditCardNumber, String workOrganization,
 			String workAddress) {
 		super(1000, email);
@@ -48,5 +56,8 @@ public class PremiumSubscription extends Subscription{
 		this.workAddress = workAddress;
 	}
 	
+	public String toString() {
+		return "Subscription Type: Premium.\nSubscription Expiry Date: " + this.getExpiryDate().toString();
+	}
 	
 }

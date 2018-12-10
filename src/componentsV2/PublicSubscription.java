@@ -35,4 +35,8 @@ public class PublicSubscription extends Subscription{
 		}
 	}
 	
+	public String toString() {
+		return "Subscription Type: Public.\nSubscription Expiry Date: " + this.getExpiryDate().toString();
+	}
+	
 }

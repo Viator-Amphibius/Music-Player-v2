@@ -67,4 +67,8 @@ public class StudentSubscription extends Subscription{
 		}
 	}
 	
+	public String toString() {
+		return "Subscription Type: Student.\nSubscription Expiry Date: " + this.getExpiryDate().toString();
+	}
+	
 }

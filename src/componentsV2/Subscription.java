@@ -61,4 +61,6 @@ public abstract class Subscription {
 	{
 		this.expiryDate = this.subscriptionDate.plusDays(30);
 	}
+	
+	public abstract String toString();
 }

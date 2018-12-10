@@ -28,12 +28,12 @@ public class DataPopulation {
 		ArrayList<Album> SITS = new ArrayList<>();
 		SITS.add(_SITS);
 		ArrayList<Song> SITSSongs = new ArrayList<>();
-		SITSSongs.add(MusicPlayer.addSong("Blinf Leading the Blind", SITS.get(0).getGenre(), SITS.get(0).getReleaseDate(), SITS, SITS.get(0).getArtist()));
+		SITSSongs.add(MusicPlayer.addSong("Blind Leading the Blind", SITS.get(0).getGenre(), SITS.get(0).getReleaseDate(), SITS, SITS.get(0).getArtist()));
 		SITSSongs.add(MusicPlayer.addSong("Pull Me from the Void", SITS.get(0).getGenre(), SITS.get(0).getReleaseDate(), SITS, SITS.get(0).getArtist()));
 		SITSSongs.add(MusicPlayer.addSong("Until the World Goes Cold", SITS.get(0).getGenre(), SITS.get(0).getReleaseDate(), SITS, SITS.get(0).getArtist()));
 		
 		//add an artist with two albums each containing three songs.
-		Artist InVain = MusicPlayer.addArtist("In vain", LocalDate.of(2003, 1, 1), "Melodic Death Metal", new ArrayList<String>());
+		Artist InVain = MusicPlayer.addArtist("In Vain", LocalDate.of(2003, 1, 1), "Melodic Death Metal", new ArrayList<String>());
 		Album _Currents = MusicPlayer.addAlbum("Currents", "Melodic Death Metal", LocalDate.of(2018, 1, 26), InVain);
 		ArrayList<Album> Currents = new ArrayList<>();
 		Currents.add(_Currents);
@@ -58,13 +58,17 @@ public class DataPopulation {
 		
 		//add three users
 		User Luna = MusicPlayer.addUser("Luna", LocalDate.of(1992,1,1), "Luna",new ArrayList<Album>(), new ArrayList<Playlist>(), "Luna@NASA.com");
-		//ArrayList<User> users1 = new ArrayList<>();
-		//users1.add(Luna);
+		MusicPlayer.followPerson(Luna, Trivium);
+		MusicPlayer.followPerson(Luna, InVain);
 		User Ganymede = MusicPlayer.addUser("Ganymede", LocalDate.of(1992,1,1), "Ganymede", new ArrayList<Album>(), new ArrayList<Playlist>(), "Ganymede@NASA.com");
-		//ArrayList<User> users2 = new ArrayList<>();
-		//users2.add(Luna);
-		//users2.add(Ganymede);
+		MusicPlayer.followPerson(Ganymede, Luna);
+		MusicPlayer.followPerson(Ganymede, Trivium);
+		MusicPlayer.followPerson(Ganymede, InVain);
 		User Titan = MusicPlayer.addUser("Titan", LocalDate.of(1992,1,1), "Titan", new ArrayList<Album>(), new ArrayList<Playlist>(), "Titan@NASA.com");
+		MusicPlayer.followPerson(Titan, Luna);
+		MusicPlayer.followPerson(Titan, Ganymede);
+		MusicPlayer.followPerson(Titan, Trivium);
+		MusicPlayer.followPerson(Titan, InVain);
 		
 		//add a playlist containing some songs
 		ArrayList<Song> songs1 = new ArrayList<>();
